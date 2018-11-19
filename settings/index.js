@@ -16,7 +16,7 @@
 
 */
 
-let path = require("path");
+var path = require("path");
 
 module.exports = {
   workingDirectory: path.join(__dirname, "..", "tmp"),
