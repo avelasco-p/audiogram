@@ -1,5 +1,5 @@
 // Dependencies
-var express = require("express"),
+const express = require("express"),
     compression = require("compression"),
     path = require("path"),
     multer = require("multer"),
@@ -7,26 +7,26 @@ var express = require("express"),
     mkdirp = require("mkdirp");
 
 // Routes and middleware
-var logger = require("../lib/logger/"),
+const logger = require("../lib/logger/"),
     render = require("./render.js"),
     status = require("./status.js"),
     fonts = require("./fonts.js"),
     errorHandlers = require("./error.js");
 
 // Settings
-var serverSettings = require("../lib/settings/");
+const serverSettings = require("../lib/settings/");
 
-var app = express();
+let app = express();
 
 app.use(compression());
 app.use(logger.morgan());
 
 // Options for where to store uploaded audio and max size
-var fileOptions = {
+let fileOptions = {
   storage: multer.diskStorage({
     destination: function(req, file, cb) {
 
-      var dir = path.join(serverSettings.workingDirectory, uuid.v1());
+      let dir = path.join(serverSettings.workingDirectory, uuid.v1());
 
       mkdirp(dir, function(err) {
         return cb(err, dir);
