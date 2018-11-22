@@ -16,8 +16,6 @@ router.post('/', (req, res, next) => {
         email: req.body.email,
     });
 
-    console.log(`user email: ${tmpUser.email}`);
-
     User.findOne({ email: tmpUser.email })
         .exec()
         .then(user => {
