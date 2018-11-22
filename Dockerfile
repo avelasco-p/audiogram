@@ -5,9 +5,9 @@ RUN apt-get update --yes && apt-get upgrade --yes
 RUN apt-get install git nodejs npm \
 libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev libpng-dev build-essential g++ \
 ffmpeg \
-redis-server --yes
+redis-server mongodb mongodb-server mongodb-client --yes
 
-RUN ln -s `which nodejs` /usr/bin/node
+# RUN ln -s `which nodejs` /usr/bin/node
 
 # Non-privileged user
 RUN useradd -m audiogram
