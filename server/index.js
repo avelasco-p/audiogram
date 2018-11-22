@@ -1,5 +1,10 @@
 // Dependencies
 const express = require("express"),
+    morgan = require('morgan'),
+    session = require('express-session'),
+    mongoose = require('mongoose'),
+    bodyParser = require('body-parser'),
+    checkAuth = require('./middleware/check-auth'),
     compression = require("compression"),
     path = require("path"),
     multer = require("multer"),
@@ -16,10 +21,35 @@ const logger = require("../lib/logger/"),
 // Settings
 const serverSettings = require("../lib/settings/");
 
-let app = express();
 
+//mongoose settings
+mongoose.connect('mongodb://localhost/dm-audiogram', {
+  useCreateIndex: true,
+  useNewUrlParser: true,
+});
+
+mongoose.set('debug', true);
+
+//starting express app
+const app = express();
+
+
+//middlewares
 app.use(compression());
-app.use(logger.morgan());
+app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({
+  name: 'jwttoken',
+  secret: 'secretKey',
+  resave: false,
+  saveUninitialized: false,
+}));
+// app.use(logger.morgan());
+
+
+//routes
+const loginRoutes = require('./routes/login');
 
 // Options for where to store uploaded audio and max size
 let fileOptions = {
@@ -77,7 +107,8 @@ app.use("/settings/", function(req, res, next) {
 }, express.static(path.join(__dirname, "..", "settings")));
 
 // Serve editor files statically
-app.use(express.static(path.join(__dirname, "..", "editor")));
+app.use('/login', loginRoutes);
+app.use("/", checkAuth, express.static(path.join(__dirname, "..", "editor")));
 
 app.use(errorHandlers);
 

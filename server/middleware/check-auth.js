@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
 
     jwt.verify(token, 'secretKey', (err, authData) => {
         if (err) {
-            return res.redirect('../');
+            return res.redirect('/login');
         }
 
         req.userData = authData;

@@ -2,7 +2,7 @@
   "name": "audiogram",
   "version": "0.9.5",
   "description": "Turn audio into a shareable video.",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "npm run postinstall && bin/server",
     "worker": "bin/worker",

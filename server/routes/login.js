@@ -10,13 +10,11 @@ router.get('/', (req, res, next) => {
     res.sendFile('./client/index.html', {root: __dirname + '/../../'});
 });
 
-User.remove({})
 
 router.post('/', (req, res, next) => {
     const tmpUser = new User({
         email: req.body.email,
     });
-
 
     console.log(`user email: ${tmpUser.email}`);
 
@@ -40,7 +38,7 @@ router.post('/', (req, res, next) => {
                             }
 
                             req.session.accessToken = 'Bearer ' + token;
-                            res.redirect('/audiogram');
+                            res.redirect('/');
                         });
                     })
                     .catch(err => {
@@ -60,7 +58,7 @@ router.post('/', (req, res, next) => {
                     }
 
                     req.session.accessToken = 'Bearer ' + token;
-                    res.redirect('/audiogram');
+                    res.redirect('/');
                 });
 
 
