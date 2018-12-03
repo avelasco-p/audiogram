@@ -28,7 +28,7 @@ mongoose.connect('mongodb://localhost/dm-audiogram', {
   useNewUrlParser: true,
 });
 
-mongoose.set('debug', true);
+//mongoose.set('debug', true);
 
 //starting express app
 const app = express();
@@ -36,7 +36,8 @@ const app = express();
 
 //middlewares
 app.use(compression());
-app.use(morgan('dev'));
+//app.use(morgan('dev'));
+// app.use(logger.morgan());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
@@ -45,7 +46,6 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
 }));
-// app.use(logger.morgan());
 
 
 //routes
